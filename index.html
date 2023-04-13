@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tạo số ngẫu nhiên</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin>
+    </script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="mydiv"></div>
+    <script type="text/babel">
+function NumberList() {
+  const [numberList, setNumberList] = React.useState([]);
+
+
+  const generateRandomNumber = () => {
+    return Math.floor(Math.random() * 100);
+  };
+
+
+  const addRandomNumber = () => {
+    const randomNumber = generateRandomNumber();
+    setNumberList([...numberList, randomNumber]);
+  };
+
+  const addRandomNumberAtIndex = (index) => {
+    const randomNumber = generateRandomNumber();
+    const updatedList = [...numberList];
+    updatedList.splice(index, 0, randomNumber);
+    setNumberList(updatedList);
+  };
+
+  const deleteNumberAtIndex = (index) => {
+    const updatedList = [...numberList];
+    updatedList.splice(index, 1);
+    setNumberList(updatedList);
+  };
+
+  return (
+    <div>
+      <h1>Random Number List</h1>
+      <ul>
+        {numberList.map((number, index) => (
+          <li key={index}>
+            {number}
+            <button onClick={() => addRandomNumberAtIndex(index)}>Add</button>
+            <button onClick={() => deleteNumberAtIndex(index)}>Delete</button>
+          </li>
+        ))}
+      </ul>
+      <button onClick={addRandomNumber}>Add Random Number</button>
+    </div>
+  );
+}
+ReactDOM.render(<NumberList />, document.getElementById('mydiv'))
+
+    </script>
+</body>
+
+</html>
